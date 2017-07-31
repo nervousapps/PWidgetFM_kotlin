@@ -1,0 +1,40 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="nervousapps.pwidgetfm_kotlin"
+    android:versionCode="2"
+    android:versionName="2.0">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo_pwfm_blanc"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Widget_Control_Panl">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".PWidgetFM" >
+            <intent-filter >
+                <action
+                    android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/pwidget_fm_info" />
+        </receiver>
+
+        <provider android:name=".PlugReceiver"
+            android:authorities="plugreceiver.provider.authority.pwidgetfm"
+            android:exported="true" />
+
+    </application>
+</manifest>
