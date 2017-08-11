@@ -26,7 +26,7 @@ class PWidgetFM : AppWidgetProvider() {
     internal lateinit var contextPlay: Context
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        val remoteViews: RemoteViews = RemoteViews(context.getPackageName(), R.layout.pwidget_fm)
+        val remoteViews: RemoteViews = RemoteViews(context.packageName, R.layout.pwidget_fm)
         val watchWidget: ComponentName = ComponentName(context, PWidgetFM::class.java)
 
         remoteViews.setOnClickPendingIntent(R.id.widget_button_play, getPendingSelfIntent(context, SYNC_CLICKED))
@@ -67,7 +67,7 @@ class PWidgetFM : AppWidgetProvider() {
 
     fun radioPlayPause(context: Context) {
 
-        val remoteView = RemoteViews(context.getPackageName(), R.layout.pwidget_fm)
+        val remoteView = RemoteViews(context.packageName, R.layout.pwidget_fm)
 
         if (mediaPlayer != null && mediaPlayer!!.isPlaying) {
             mediaPlayer!!.stop()
