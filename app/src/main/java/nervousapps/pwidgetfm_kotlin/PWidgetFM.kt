@@ -8,8 +8,8 @@ import android.media.MediaPlayer
 import android.app.PendingIntent
 import android.content.Intent
 import android.appwidget.AppWidgetProvider
-import android.content.Context;
-import android.net.Uri;
+import android.content.Context
+import android.net.Uri
 
 
 
@@ -26,11 +26,8 @@ class PWidgetFM : AppWidgetProvider() {
     internal lateinit var contextPlay: Context
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        val remoteViews: RemoteViews
-        val watchWidget: ComponentName
-
-        remoteViews = RemoteViews(context.getPackageName(), R.layout.pwidget_fm)
-        watchWidget = ComponentName(context, PWidgetFM::class.java)
+        val remoteViews: RemoteViews = RemoteViews(context.getPackageName(), R.layout.pwidget_fm)
+        val watchWidget: ComponentName = ComponentName(context, PWidgetFM::class.java)
 
         remoteViews.setOnClickPendingIntent(R.id.widget_button_play, getPendingSelfIntent(context, SYNC_CLICKED))
         appWidgetManager.updateAppWidget(watchWidget, remoteViews)
