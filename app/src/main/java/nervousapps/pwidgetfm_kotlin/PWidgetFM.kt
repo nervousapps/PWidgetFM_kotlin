@@ -12,23 +12,22 @@ import android.content.Context
 import android.net.Uri
 
 
-
-
 /**
  * Created by achillepenet on 7/31/17.
  */
 class PWidgetFM : AppWidgetProvider() {
 
-    internal var radio = "http://195.154.185.139/radio/3616/stream/11021"
+    internal var radio = "https://www.radioking.com/play/pwfm-provocative-wave-for-music"
 
     internal var uri = Uri.parse(radio)
 
     internal lateinit var contextPlay: Context
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        val remoteViews: RemoteViews = RemoteViews(context.packageName, R.layout.pwidget_fm)
-        val watchWidget: ComponentName = ComponentName(context, PWidgetFM::class.java)
+        val remoteViews = RemoteViews(context.packageName, R.layout.pwidget_fm)
+        val watchWidget = ComponentName(context, PWidgetFM::class.java)
 
+        remoteViews.setImageViewUri(R.id.widget_button_play, Uri.parse("https://www.radioking.fr/api/track/cover/d8b210b9-15bc-4694-85ed-941d8caa7e0d"))
         remoteViews.setOnClickPendingIntent(R.id.widget_button_play, getPendingSelfIntent(context, SYNC_CLICKED))
         appWidgetManager.updateAppWidget(watchWidget, remoteViews)
     }
