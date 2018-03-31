@@ -4,20 +4,19 @@ package nervousapps.pwidgetfm_kotlin
  * Created by achillepenet on 7/31/17.
  */
 
-import android.appwidget.AppWidgetManager;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.ContentProvider;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.Cursor;
-import android.media.AudioManager;
-import android.net.Uri;
-import android.util.Log;
-import android.widget.RemoteViews;
-import android.widget.Toast;
+import android.appwidget.AppWidgetManager
+import android.content.BroadcastReceiver
+import android.content.ComponentName
+import android.content.ContentProvider
+import android.content.ContentValues
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.database.Cursor
+import android.media.AudioManager
+import android.net.Uri
+import android.widget.RemoteViews
+import android.widget.Toast
 
 class PlugReceiver : ContentProvider() {
 
@@ -25,13 +24,16 @@ class PlugReceiver : ContentProvider() {
 
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                PWidgetFM.radioPause()
-                //Log.d("Mesage","Unplug");
+                val playpause = Intent(context, MusicService::class.java)
+                playpause.putExtra("KEY_COMMAND", "STOP")
+                playpause.putExtra("KEY_MESSAGE", "PWFM")
+
+                context.stopService(playpause)
 
                 val remoteView = RemoteViews(getContext()!!.packageName, R.layout.pwidget_fm)
 
                 remoteView.setImageViewResource(R.id.widget_button_play, R.drawable.play)
-                AppWidgetManager.getInstance(getContext()).updateAppWidget(ComponentName(getContext()!!, PWidgetFM::class.java!!), remoteView)
+                AppWidgetManager.getInstance(getContext()).updateAppWidget(ComponentName(getContext()!!, PWidgetFM::class.java), remoteView)
                 Toast.makeText(getContext(), "PWFM is off", Toast.LENGTH_LONG).show()
             }
         }

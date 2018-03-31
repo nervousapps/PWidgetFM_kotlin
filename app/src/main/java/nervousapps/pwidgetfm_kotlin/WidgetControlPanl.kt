@@ -3,14 +3,17 @@ package nervousapps.pwidgetfm_kotlin
 /**
  * Created by achillepenet on 7/31/17.
  */
+import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 
-class Widget_Control_Panl : AppCompatActivity() {
+class WidgetControlPanl : AppCompatActivity() {
 
-    internal lateinit var currentTrack: WebView
+    private lateinit var currentTrack: WebView
 
+    @SuppressLint("StringFormatInvalid")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -19,6 +22,7 @@ class Widget_Control_Panl : AppCompatActivity() {
 
         currentTrack = findViewById(R.id.currenttrack)
 
+        currentTrack.clearCache(true)
         currentTrack.settings.javaScriptEnabled = true
         currentTrack.loadUrl("file:///android_asset/index.html")
     }

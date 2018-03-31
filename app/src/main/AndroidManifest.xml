@@ -9,18 +9,23 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Widget_Control_Panl">
+        <activity android:name=".WidgetControlPanl"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name="nervousapps.pwidgetfm_kotlin.MusicService" />
 
         <receiver android:name=".PWidgetFM" >
             <intent-filter >
@@ -35,8 +40,7 @@
         </receiver>
 
         <provider android:name=".PlugReceiver"
-            android:authorities="plugreceiver.provider.authority.pwidgetfm"
-            android:exported="true" />
+            android:authorities="plugreceiver.provider.authority.pwidgetfm"/>
 
     </application>
 </manifest>

@@ -1,15 +1,17 @@
 package nervousapps.pwidgetfm_kotlin
 
-import android.widget.Toast
-import android.content.ComponentName
-import android.appwidget.AppWidgetManager
-import android.widget.RemoteViews
-import android.media.MediaPlayer
 import android.app.PendingIntent
-import android.content.Intent
+import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Build
+import android.support.v4.content.ContextCompat
+import android.widget.RemoteViews
+import android.widget.Toast
 
 
 /**
@@ -17,85 +19,69 @@ import android.net.Uri
  */
 class PWidgetFM : AppWidgetProvider() {
 
+    companion object {
+
+        val SYNC_CLICKED = "automaticWidgetSyncButtonClick"
+
+        var isPlaying = false
+
+        var mediaPlayer: MediaPlayer? = null
+    }
+
     internal var radio = "https://www.radioking.com/play/pwfm-provocative-wave-for-music"
 
-    internal var uri = Uri.parse(radio)
+    private var uri = Uri.parse(radio)
 
-    internal lateinit var contextPlay: Context
+    private lateinit var contextPlay: Context
+
+    private lateinit var watchWidget : ComponentName
+
+    private lateinit var remoteViews: RemoteViews
+
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        val remoteViews = RemoteViews(context.packageName, R.layout.pwidget_fm)
-        val watchWidget = ComponentName(context, PWidgetFM::class.java)
-
-        remoteViews.setImageViewUri(R.id.widget_button_play, Uri.parse("https://www.radioking.fr/api/track/cover/d8b210b9-15bc-4694-85ed-941d8caa7e0d"))
         remoteViews.setOnClickPendingIntent(R.id.widget_button_play, getPendingSelfIntent(context, SYNC_CLICKED))
         appWidgetManager.updateAppWidget(watchWidget, remoteViews)
     }
 
     override fun onReceive(context: Context, intent: Intent) {
+        remoteViews = RemoteViews(context.packageName, R.layout.pwidget_fm)
+        watchWidget = ComponentName(context, PWidgetFM::class.java)
         contextPlay = context
 
         val action = intent.action
 
         if (SYNC_CLICKED == action) {
 
-            if (mediaPlayer == null) {
-                radioInit(context)
+            val playpause = Intent(contextPlay, MusicService::class.java)
+            playpause.putExtra("KEY_COMMAND", "START")
+            playpause.putExtra("KEY_MESSAGE", "PWFM")
+
+            if(isPlaying){
+                contextPlay.stopService(playpause)
+                Toast.makeText(context, "PWFM is off", Toast.LENGTH_LONG).show()
+                remoteViews.setImageViewResource(R.id.widget_button_play, R.drawable.play)
+                AppWidgetManager.getInstance(context).updateAppWidget(ComponentName(context, PWidgetFM::class.java), remoteViews)
+            }else{
+                mediaPlayer = MediaPlayer.create(context, uri)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    ContextCompat.startForegroundService(contextPlay, playpause)
+                } else {
+                    contextPlay.startService(playpause)
+                }
+                Toast.makeText(context, "Let the techno out !!!", Toast.LENGTH_LONG).show()
+                remoteViews.setImageViewResource(R.id.widget_button_play, R.drawable.pause)
+                AppWidgetManager.getInstance(context).updateAppWidget(ComponentName(context, PWidgetFM::class.java), remoteViews)
             }
-
-            radioPlayPause(context)
-
         }
 
         super.onReceive(context, intent)
     }
 
 
-    protected fun getPendingSelfIntent(context: Context, action: String): PendingIntent {
+    private fun getPendingSelfIntent(context: Context, action: String): PendingIntent {
         val intent = Intent(context, javaClass)
         intent.action = action
         return PendingIntent.getBroadcast(context, 0, intent, 0)
-    }
-
-
-    fun radioInit(context: Context) {
-
-        mediaPlayer = MediaPlayer.create(context, uri)
-
-    }
-
-    fun radioPlayPause(context: Context) {
-
-        val remoteView = RemoteViews(context.packageName, R.layout.pwidget_fm)
-
-        if (mediaPlayer != null && mediaPlayer!!.isPlaying) {
-            mediaPlayer!!.stop()
-            mediaPlayer!!.release()
-            mediaPlayer = null
-            remoteView.setImageViewResource(R.id.widget_button_play, R.drawable.play)
-            AppWidgetManager.getInstance(context).updateAppWidget(ComponentName(context, PWidgetFM::class.java), remoteView)
-            Toast.makeText(context, "PWFM is off", Toast.LENGTH_LONG).show()
-        } else {
-            mediaPlayer!!.start()
-            remoteView.setImageViewResource(R.id.widget_button_play, R.drawable.pause)
-            AppWidgetManager.getInstance(context).updateAppWidget(ComponentName(context, PWidgetFM::class.java), remoteView)
-            Toast.makeText(context, "Let the techno out !!!", Toast.LENGTH_LONG).show()
-        }
-    }
-
-    companion object {
-
-        var mediaPlayer: MediaPlayer? = null
-
-        private val SYNC_CLICKED = "automaticWidgetSyncButtonClick"
-
-        fun radioPause() {
-
-            if (mediaPlayer != null && mediaPlayer!!.isPlaying) {
-                mediaPlayer!!.stop()
-                mediaPlayer!!.release()
-                mediaPlayer = null
-            }
-        }
     }
 }

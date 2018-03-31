@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PWidgetFM_kotlin</string>
+
+    <string name="notification_channel_followers">Follower Notification Channel</string>
+    <string name="notification_channel_direct_message">Direct Messages Channel</string>
+
+    <string name="notification_title">############ PWFM is running ! #########</string>
+    <string name="notification_message">############ Techno is out ! ############</string>
 </resources>

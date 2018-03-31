@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@android:color/background_dark"
-    tools:context="nervousapps.pwidgetfm_kotlin.Widget_Control_Panl">
+    tools:context="nervousapps.pwidgetfm_kotlin.WidgetControlPanl">
 
     <GridLayout
         android:layout_width="match_parent"
@@ -21,9 +21,7 @@
         <WebView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/currenttrack"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/imageView" />
+            android:id="@+id/currenttrack" />
 
     </GridLayout>
 
