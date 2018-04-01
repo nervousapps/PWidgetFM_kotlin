@@ -34,4 +34,13 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 
+    <Button
+        android:id="@+id/east"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="133dp"
+        android:layout_height="71dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp" />
+
 </RelativeLayout>

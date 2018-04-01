@@ -4,17 +4,14 @@ package nervousapps.pwidgetfm_kotlin
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-
-import android.support.v4.app.NotificationCompat
-
 import android.support.annotation.RequiresApi
-import android.app.PendingIntent
-import android.content.Intent
-
+import android.support.v4.app.NotificationCompat
 
 
 internal class NotificationHelper (context: Context) : ContextWrapper(context) {
@@ -37,7 +34,7 @@ internal class NotificationHelper (context: Context) : ContextWrapper(context) {
     }
 
     fun notificationbuilder() : NotificationCompat.Builder {
-        val intent = Intent(this, DialogFragmentWidget::class.java)
+        val intent = Intent(this, WidgetControlPanl::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
         // You only need to create the channel on API 26+ devices

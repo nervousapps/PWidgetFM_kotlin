@@ -25,6 +25,17 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".EasterEgg"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <service android:name="nervousapps.pwidgetfm_kotlin.MusicService" />
 
         <receiver android:name=".PWidgetFM" >

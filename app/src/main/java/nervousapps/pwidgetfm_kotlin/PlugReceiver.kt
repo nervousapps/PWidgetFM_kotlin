@@ -5,13 +5,7 @@ package nervousapps.pwidgetfm_kotlin
  */
 
 import android.appwidget.AppWidgetManager
-import android.content.BroadcastReceiver
-import android.content.ComponentName
-import android.content.ContentProvider
-import android.content.ContentValues
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.database.Cursor
 import android.media.AudioManager
 import android.net.Uri
