@@ -9,6 +9,7 @@ import android.content.*
 import android.database.Cursor
 import android.media.AudioManager
 import android.net.Uri
+import android.view.View
 import android.widget.RemoteViews
 import android.widget.Toast
 

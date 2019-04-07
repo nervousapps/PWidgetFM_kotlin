@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <application
         android:allowBackup="true"
@@ -50,7 +52,8 @@
                 android:resource="@xml/pwidget_fm_info" />
         </receiver>
 
-        <provider android:name=".PlugReceiver"
+        <provider
+            android:name=".PlugReceiver"
             android:authorities="plugreceiver.provider.authority.pwidgetfm"/>
 
     </application>

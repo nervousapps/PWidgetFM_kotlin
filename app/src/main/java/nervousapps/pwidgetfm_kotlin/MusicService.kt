@@ -4,7 +4,6 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import android.widget.Toast
 import nervousapps.pwidgetfm_kotlin.PWidgetFM.Companion.isPlaying
 import nervousapps.pwidgetfm_kotlin.PWidgetFM.Companion.mediaPlayer
 
@@ -13,8 +12,7 @@ class MusicService: Service(){
     private lateinit var mNotif : NotificationHelper
 
     override fun onBind(intent: Intent?): IBinder {
-        Toast.makeText(this, "HEY", Toast.LENGTH_LONG).show()
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO()
     }
 
 

@@ -10,8 +10,12 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.support.v4.content.ContextCompat
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.RemoteViews
 import android.widget.Toast
+
 
 
 /**
@@ -52,6 +56,7 @@ class PWidgetFM : AppWidgetProvider() {
         val action = intent.action
 
         if (SYNC_CLICKED == action) {
+            remoteViews.setViewVisibility(R.id.progress, VISIBLE)
 
             val playpause = Intent(contextPlay, MusicService::class.java)
             playpause.putExtra("KEY_COMMAND", "START")
@@ -61,6 +66,7 @@ class PWidgetFM : AppWidgetProvider() {
                 contextPlay.stopService(playpause)
                 Toast.makeText(context, "PWFM is off", Toast.LENGTH_LONG).show()
                 remoteViews.setImageViewResource(R.id.widget_button_play, R.drawable.play)
+                remoteViews.setViewVisibility(R.id.progress, GONE)
                 AppWidgetManager.getInstance(context).updateAppWidget(ComponentName(context, PWidgetFM::class.java), remoteViews)
             }else{
                 mediaPlayer = MediaPlayer.create(context, uri)
